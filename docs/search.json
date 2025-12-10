@@ -46,14 +46,14 @@
     "href": "Research Questions.html#research-question-3-can-we-classify-high-value-schools-high-earnings-low-cost",
     "title": "Research Questions",
     "section": "Research Question 3: Can we classify “High Value” schools (High Earnings, Low Cost)?",
-    "text": "Research Question 3: Can we classify “High Value” schools (High Earnings, Low Cost)?\nWhy This Question?\nThis classification is vital as it provides a data-driven definition of educational value, allowing institutions and policymakers to understand which factors (curriculum, control, etc.) successfully drive high economic return at low cost. It gives prospective students a clear, predictive model to make investment decisions that optimize their financial outcomes.\nModel Used\nWe use KNN Classifier with Cross-Validation. Also **Kappa** to evaluate, as it corrects for chance."
+    "text": "Research Question 3: Can we classify “High Value” schools (High Earnings, Low Cost)?\nWhy This Question?\nThis classification is vital as it provides a data-driven definition of educational value, allowing institutions and policymakers to understand which factors (curriculum, control, etc.) successfully drive high economic return at low cost. It gives prospective students a clear, predictive model to make investment decisions that optimize their financial outcomes.\nModel Used\nLogistic Regression with Probability Thresholds and S-Curve Visualization."
   },
   {
     "objectID": "Research Questions.html#research-question-4-do-education-deserts-geographic-isolation-negatively-impact-completion-rates",
     "href": "Research Questions.html#research-question-4-do-education-deserts-geographic-isolation-negatively-impact-completion-rates",
     "title": "Research Questions",
     "section": "Research Question 4: Do “Education Deserts” (geographic isolation) negatively impact completion rates?",
-    "text": "Research Question 4: Do “Education Deserts” (geographic isolation) negatively impact completion rates?\nWhy This Question?\nThe question “Do ‘Education Deserts’ (geographic isolation) negatively impact completion rates?” is crucial because it addresses the systemic challenges faced by geographically isolated students and informs policy solutions aimed at improving educational access and equity.\nModel Used\nWe calculate the **Distance to Nearest Competitor** using the Euclidean Distance Calculation and run a Spatial Regression. Its visualized using boxplot."
+    "text": "Research Question 4: Do “Education Deserts” (geographic isolation) negatively impact completion rates?\nWhy This Question?\nThe question “Do Education Deserts (geographic isolation) negatively impact completion rates?” is crucial because it addresses the systemic challenges faced by geographically isolated students and informs policy solutions aimed at improving educational access and equity.\nModel Used\nWe calculate the **Distance to Nearest Competitor** using the Euclidean Distance Calculation and run a Spatial Regression. Its visualized using boxplot."
   },
   {
     "objectID": "Source Code.html",
@@ -109,7 +109,7 @@
     "href": "Conclusion.html#key-analytical-findings",
     "title": "Conclusion & Strategic Recommendations",
     "section": "Key Analytical Findings:",
-    "text": "Key Analytical Findings:\n\nNon-Linearity in ROI: Our Random Forest model revealed that while a technical curriculum boosts earnings, the relationship is non-linear. The PDP identified a point of diminishing returns.\nContextual Efficacy: The Interaction Analysis demonstrated that “one size does not fit all.” The impact of curriculum changes varies significantly by institutional archetype (Elite vs. Commuter).\nThe “Education Desert” Effect: Our spatial analysis provided robust statistical evidence that geographic isolation negatively correlates with completion rates ($p &lt; 0.05$).s\nPrecision Classification: The KNN model successfully mapped the complex local clusters that define “High Value” institutions."
+    "text": "Key Analytical Findings:\n\nNon-Linearity in ROI: Our Random Forest model revealed that while a technical curriculum boosts earnings, the relationship is non-linear. The PDP identified a point of diminishing returns.\nContextual Efficacy: The Interaction Analysis demonstrated that “one size does not fit all.” The impact of curriculum changes varies significantly by institutional archetype (Elite vs. Commuter).\nThe “Education Desert” Effect: Our spatial analysis provided robust statistical evidence that geographic isolation negatively correlates with completion rates ($p &lt; 0.05$).s\nPrecision Classification: The logistic model successfully quantified the “tipping point” (1250 SAT) where “High Value” status becomes probable."
   },
   {
     "objectID": "Conclusion.html#strategic-implications",
@@ -144,7 +144,7 @@
     "href": "Conclusion.html#limitations",
     "title": "Conclusion & Strategic Recommendations",
     "section": "Limitations:",
-    "text": "Limitations:\nWhile this analysis provides significant insights, it is subject to several limitations that future research should address:\n\nTemporal Dynamics: The analysis is cross-sectional. We cannot prove causality without longitudinal data.\nAggregation Bias: We rely on institutional averages, losing student-level nuance.\nProxy Variables: ADM_RATE and PCTPELL are imperfect proxies for selectivity and SES."
+    "text": "Limitations:\nWhile this analysis provides significant insights, it is subject to several limitations that future research should address:\n\nTemporal Dynamics: The analysis is cross-sectional. We cannot prove causality without longitudinal data.\nAggregation Bias: We rely on the institutional averages, losing student-level nuance.\nProxy Variables: ADM_RATE and PCTPELL are imperfect proxies for selectivity and SES."
   },
   {
     "objectID": "Conclusion.html#future-scope",
