@@ -32,7 +32,7 @@ Logistic Regression with Probability Thresholds and S-Curve Visualization.
 ## Research Question 4: Do "Education Deserts" (geographic isolation) negatively impact completion rates?
 
 **Why This Question?**\
-The question **"Do 'Education Deserts' (geographic isolation) negatively impact completion rates?"** is crucial because it addresses the systemic challenges faced by geographically isolated students and informs policy solutions aimed at improving **educational access and equity**.
+The question **"Do Education Deserts (geographic isolation) negatively impact completion rates?"** is crucial because it addresses the systemic challenges faced by geographically isolated students and informs policy solutions aimed at improving **educational access and equity**.
 
 **Model Used**\
 We calculate the \*\*Distance to Nearest Competitor\*\* using the Euclidean Distance Calculation and run a Spatial Regression. Its visualized using boxplot.
