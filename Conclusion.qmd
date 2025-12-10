@@ -15,7 +15,7 @@ By integrating **Unsupervised Learning (PCA, Clustering)** with **Supervised met
 
 3.  **The "Education Desert" Effect:** Our spatial analysis provided robust statistical evidence that geographic isolation negatively correlates with completion rates (\$p \< 0.05\$).s
 
-4.  **Precision Classification:** The KNN model successfully mapped the complex local clusters that define "High Value" institutions.
+4.  **Precision Classification:** The logistic model successfully quantified the “tipping point” (1250 SAT) where “High Value” status becomes probable.
 
 ## **Strategic Implications:**
 
