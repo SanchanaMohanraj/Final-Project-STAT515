@@ -26,7 +26,7 @@ For policymakers and university administrators, these findings suggest a shift f
 While this analysis provides significant insights, it is subject to several limitations that future research should address:
 
 1.  **Temporal Dynamics:** The analysis is cross-sectional. We cannot prove causality without longitudinal data.
-2.  **Aggregation Bias:** We rely on institutional averages, losing student-level nuance.
+2.  **Aggregation Bias:** We rely on the institutional averages, losing student-level nuance.
 3.  **Proxy Variables:** `ADM_RATE` and `PCTPELL` are imperfect proxies for selectivity and SES.
 
 ## Future Scope:
