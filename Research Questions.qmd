@@ -1,0 +1,38 @@
+---
+title: "Research Questions"
+page-layout: full
+---
+
+This page highlights the core research questions guiding the analysis of the **STAT Final Project**. Each question is carefully designed to explore key aspects of the dataset.
+
+## Research Question 1: Can we predict 10-year earnings based on curriculum and school stats?
+
+**Why This Question?**\
+The ability to predict 10-year alumni earnings using **Curriculum Indices (PC1)** and **School Stats** is confirmed by the Random Forest model, validating the question's significance for economic mobility. This is crucial for institutional strategy, as it guides resource allocation to programs with the highest ROI and helps policymakers avoid oversimplified linear assumptions.
+
+**Model Used**\
+We use **Random Forest model and Partial Dependence Plot to visualize** because it captures non-linear relationships better than linear regression.
+
+## Research Question 2: Does the impact of a "Tech Focus" depend on the School Type (Elite vs. Budget)?
+
+**Why This Question?**\
+This question is critical because it tests for **contextual efficacy**, determining if the benefit of a technical curriculum on graduation rates is universal or dependent on a school's resources and student body. The finding that the effect varies by **School Cluster** (Elite vs. Budget) directly challenges "one size fits all" education policies.
+
+**Model Used**\
+We use an **Interaction Model** (`PC1 * Cluster`).
+
+## Research Question 3: Can we classify "High Value" schools (High Earnings, Low Cost)?
+
+**Why This Question?**\
+This classification is vital as it provides a **data-driven definition of educational value**, allowing institutions and policymakers to understand which factors (curriculum, control, etc.) successfully drive high economic return at low cost. It gives prospective students a clear, predictive model to make investment decisions that optimize their financial outcomes.
+
+**Model Used**\
+We use KNN Classifier with Cross-Validation. Also \*\*Kappa\*\* to evaluate, as it corrects for chance.
+
+## Research Question 4: Do "Education Deserts" (geographic isolation) negatively impact completion rates?
+
+**Why This Question?**\
+The question **"Do 'Education Deserts' (geographic isolation) negatively impact completion rates?"** is crucial because it addresses the systemic challenges faced by geographically isolated students and informs policy solutions aimed at improving **educational access and equity**.
+
+**Model Used**\
+We calculate the \*\*Distance to Nearest Competitor\*\* using the Euclidean Distance Calculation and run a Spatial Regression. Its visualized using boxplot.

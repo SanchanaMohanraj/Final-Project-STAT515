@@ -1,0 +1,51 @@
+---
+title: "About"
+page-layout: full
+---
+
+## Introduction
+
+This project moves beyond simple descriptive statistics to apply **Master's Level Machine Learning and Spatial Analysis** techniques to the College Scorecard dataset.
+
+## **Project Overview**
+
+Higher education in the United States is characterized by immense diversity in institutional quality, cost, and outcomes. With rising student debt and questions surrounding the value of a degree, understanding the drivers of student success—both financial (Earnings) and academic (Graduation Rates)—is critical.
+
+This analysis aims to disentangle the complex relationships between **Curriculum Composition** (what schools teach), **Institutional Context** (the type of school), and **Geographic characteristics** (where schools are located).
+
+## Dataset Composition:
+
+To conduct this analysis, we are using the **College Scorecard (Most Recent Cohorts)** dataset. The dataset comprises of 6,429 total institutions.
+
+**1. Institution Type (Control):**
+
+-   **Private For-profit:** 2,420 (38%)
+
+-   **Public:** 2,056 (32%)
+
+-   **Private Non-profit:** 1,953 (30%)
+
+**2. Degree Level (Predominant):**
+
+-   **Certificate:** 2,663
+
+-   **Bachelor's:** 1,983
+
+-   **Associate:** 996
+
+-   **Graduate:** 280
+
+**3. Data Availability:**
+
+-   **Earnings Data:** Available for 82% of schools.
+
+-   **Admission Rates:** Available for 30% of schools.
+
+-   **SAT Scores:** Available for only 17% (mostly 4-year universities).
+
+## **Research Objectives:**
+
+1.  **Earnings (Non-Linear):** *Can we predict 10-year earnings using Random Forest to capture non-linear curriculum effects?*
+2.  **Graduation Rate (Interaction):** *Does the impact of a "Tech Focus" depend on the School Type (Elite vs. Budget)?*
+3.  **Classification (Logistic Regression):** *Can we accurately classify "High Value" schools (High Earnings, Low Cost)?*
+4.  **Spatial Analysis (Geography):** *Do "Education Deserts" (geographic isolation) negatively impact completion rates?*

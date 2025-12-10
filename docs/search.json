@@ -1,0 +1,184 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This project moves beyond simple descriptive statistics to apply Master’s Level Machine Learning and Spatial Analysis techniques to the College Scorecard dataset."
+  },
+  {
+    "objectID": "about.html#author",
+    "href": "about.html#author",
+    "title": "About",
+    "section": "",
+    "text": "Graduate student in Data Analytics Engineering at George Mason University.\nFocus areas: logistic regression, classification models, database design."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Recent Cohert Institution Data Analysis",
+    "section": "",
+    "text": "Hi, I’m Sanchana Mohanraj\n\nAbout me\nI completed my undergraduate degree in B.Tech in Electronics and Instrumentation Engineering (EIE) in India. During my undergraduate studies, I worked on a machine learning project that sparked my curiosity helped me build my foundational skills. I also completed the Integrated Business Analytics program from IIM Indore, where I learned to use Python, R, SQL, Tableau, Power BI and engaged in analytics-based projects that deepened my understanding of data and its applications. After my graduation, I worked as a Senior Systems Engineer at Infosys for three years, gaining valuable industry experience. This combined exposure has fueled my passion for data analytics, and I am excited to further develop my expertise and collaborate with everyone in the program. By heart I’m a sportsperson and I like hiking and playing volleyball and table tennis.\n\n\n\nHi, I’m Sneha Srihari\n\nAbout me\nHello! My name is Sneha Srihari. I am from Bengaluru, India. I am currently pursuing my Master’s degree in Data Analytics and Engineering. This is my first semester at George Mason University. I have completed my Bachelor’s in Electrical Engineering from PES University. I have also completed my MBA in Data Science and Analytics from Jain University. I have worked for 3.5 years at Ryzklytix Consulting Solutions as a Software Engineer."
+  },
+  {
+    "objectID": "Research Questions.html",
+    "href": "Research Questions.html",
+    "title": "Research Questions",
+    "section": "",
+    "text": "This page highlights the core research questions guiding the analysis of the STAT Final Project. Each question is carefully designed to explore key aspects of the dataset."
+  },
+  {
+    "objectID": "Research Questions.html#research-question-1-can-we-predict-10-year-earnings-based-on-curriculum-and-school-stats",
+    "href": "Research Questions.html#research-question-1-can-we-predict-10-year-earnings-based-on-curriculum-and-school-stats",
+    "title": "Research Questions",
+    "section": "Research Question 1: Can we predict 10-year earnings based on curriculum and school stats?",
+    "text": "Research Question 1: Can we predict 10-year earnings based on curriculum and school stats?\nWhy This Question?\nThe ability to predict 10-year alumni earnings using Curriculum Indices (PC1) and School Stats is confirmed by the Random Forest model, validating the question’s significance for economic mobility. This is crucial for institutional strategy, as it guides resource allocation to programs with the highest ROI and helps policymakers avoid oversimplified linear assumptions.\nModel Used\nWe use Random Forest model and Partial Dependence Plot to visualize because it captures non-linear relationships better than linear regression."
+  },
+  {
+    "objectID": "Research Questions.html#research-question-2-does-the-impact-of-a-tech-focus-depend-on-the-school-type-elite-vs.-budget",
+    "href": "Research Questions.html#research-question-2-does-the-impact-of-a-tech-focus-depend-on-the-school-type-elite-vs.-budget",
+    "title": "Research Questions",
+    "section": "Research Question 2: Does the impact of a “Tech Focus” depend on the School Type (Elite vs. Budget)?",
+    "text": "Research Question 2: Does the impact of a “Tech Focus” depend on the School Type (Elite vs. Budget)?\nWhy This Question?\nThis question is critical because it tests for contextual efficacy, determining if the benefit of a technical curriculum on graduation rates is universal or dependent on a school’s resources and student body. The finding that the effect varies by School Cluster (Elite vs. Budget) directly challenges “one size fits all” education policies.\nModel Used\nWe use an Interaction Model (PC1 * Cluster)."
+  },
+  {
+    "objectID": "Research Questions.html#research-question-3-can-we-classify-high-value-schools-high-earnings-low-cost",
+    "href": "Research Questions.html#research-question-3-can-we-classify-high-value-schools-high-earnings-low-cost",
+    "title": "Research Questions",
+    "section": "Research Question 3: Can we classify “High Value” schools (High Earnings, Low Cost)?",
+    "text": "Research Question 3: Can we classify “High Value” schools (High Earnings, Low Cost)?\nWhy This Question?\nThis classification is vital as it provides a data-driven definition of educational value, allowing institutions and policymakers to understand which factors (curriculum, control, etc.) successfully drive high economic return at low cost. It gives prospective students a clear, predictive model to make investment decisions that optimize their financial outcomes.\nModel Used\nWe use KNN Classifier with Cross-Validation. Also **Kappa** to evaluate, as it corrects for chance."
+  },
+  {
+    "objectID": "Research Questions.html#research-question-4-do-education-deserts-geographic-isolation-negatively-impact-completion-rates",
+    "href": "Research Questions.html#research-question-4-do-education-deserts-geographic-isolation-negatively-impact-completion-rates",
+    "title": "Research Questions",
+    "section": "Research Question 4: Do “Education Deserts” (geographic isolation) negatively impact completion rates?",
+    "text": "Research Question 4: Do “Education Deserts” (geographic isolation) negatively impact completion rates?\nWhy This Question?\nThe question “Do ‘Education Deserts’ (geographic isolation) negatively impact completion rates?” is crucial because it addresses the systemic challenges faced by geographically isolated students and informs policy solutions aimed at improving educational access and equity.\nModel Used\nWe calculate the **Distance to Nearest Competitor** using the Euclidean Distance Calculation and run a Spatial Regression. Its visualized using boxplot."
+  },
+  {
+    "objectID": "Source Code.html",
+    "href": "Source Code.html",
+    "title": "Source Code",
+    "section": "",
+    "text": "To conduct this analysis, we are using the College Scorecard (Most Recent Cohorts) dataset. We have filtered the data to focus on 1,039 four-year institutions with complete data on earnings, completion, and admissions.\n\n\nDerived Features (Created for this Analysis):\nPC1 (The “Tech Score”): A continuous index derived via PCA.\nHigh Score: Engineering, CS, Math focus (e.g., Georgia Tech).\nLow Score: Liberal Arts, English, History focus.\nCluster (The “School Archetype”): Created via K-Means Clustering on cost, size, and selectivity.\n1 (Elite): Highly selective, wealthy, private schools (e.g., Yale).\n2 (State U): Large public universities (e.g., UVA, GMU).\n3 (Budget): Small, less selective private colleges.\nIsolation_Level: Categorized based on distance to the nearest competitor.\nUrban: Many neighbors within 5km.\nIsolated: No neighbors within 25km (“Education Desert”).\nStandard Variables:\nSAT_AVG: Average SAT Score of admitted students (Proxy for Student Quality).\nINEXPFTE: Instructional Expenditure per student (Proxy for School Investment).\nPCTPELL: % of students on Pell Grants (Proxy for Low Income status).\nHigh_Value: Binary target. “Yes” if a school has Above Median Earnings AND Below Median Cost."
+  },
+  {
+    "objectID": "Methodology & Visualizations.html",
+    "href": "Methodology & Visualizations.html",
+    "title": "Methodology & Visualizations",
+    "section": "",
+    "text": "This website presents recent cohort institutions data analysis, including statistical modeling and visualizations.\nCluster Profiles (School Archetypes)\nThe Cluster Profiles table is the key output of the K-Means Clustering feature engineering step. It summarizes the typical characteristics of the three distinct “School Archetypes” identified by the algorithm."
+  },
+  {
+    "objectID": "Methodology & Visualizations.html#author",
+    "href": "Methodology & Visualizations.html#author",
+    "title": "Methodology & Visualizations",
+    "section": "",
+    "text": "Graduate student in Data Analytics Engineering at George Mason University.\nFocus areas: logistic regression, classification models, database design."
+  },
+  {
+    "objectID": "Methodology & Visualizations.html#research-question-1-can-we-predict-10-year-earnings-based-on-curriculum-and-school-stats",
+    "href": "Methodology & Visualizations.html#research-question-1-can-we-predict-10-year-earnings-based-on-curriculum-and-school-stats",
+    "title": "Methodology & Visualizations",
+    "section": "Research Question 1: Can we predict 10-year earnings based on curriculum and school stats?",
+    "text": "Research Question 1: Can we predict 10-year earnings based on curriculum and school stats?\n\nDetailed Analysis:\nThis Partial Dependence Plot (PDP) visualizes the complex, non-linear relationship between a school’s “Tech Focus” (PC1) and its graduates’ median earnings. Unlike a standard regression coefficient which gives a single slope, the PDP traces the expected earnings across the entire range of Tech Focus values. The x-axis represents the Principal Component 1 score (where higher values indicate a stronger emphasis on Engineering and CS), while the y-axis shows the predicted 10-year median earnings.\nKey Insight: We observe a sharp upward trend initially, indicating that shifting from a “Liberal Arts” focus to a “Tech” focus yields significant ROI gains. However, the curve eventually plateaus. This suggests a “diminishing return” effect: once a school reaches a certain level of technical specialization, adding even more engineering programs does not significantly boost earnings further. This nuance would have been missed by a simple linear model, highlighting the value of the Random Forest approach.\nMethodology & Rationale:\n\nWhy Random Forest?\n\nNon-Linearity: Human capital theory suggests that returns to education are not always linear. A simple linear regression assumes a straight-line relationship (e.g., “more STEM is always better”). Random Forest is non-parametric and can model complex curves (e.g., saturation points or diminishing returns).\nRobustness: It handles multicollinearity better than OLS and is less prone to overfitting than single decision trees.\n\nWhy Partial Dependence Plots (PDP)?\n\nInterpretation: Random Forests are often considered “Black Boxes”. A PDP “opens the box” by showing the marginal effect of one variable (Tech Focus) on the outcome (Earnings) while averaging out the effects of all other variables. This allows us to visualize the shape of the relationship."
+  },
+  {
+    "objectID": "Methodology & Visualizations.html#research-question-2-does-the-impact-of-a-tech-focus-depend-on-the-school-type-elite-vs.-budget",
+    "href": "Methodology & Visualizations.html#research-question-2-does-the-impact-of-a-tech-focus-depend-on-the-school-type-elite-vs.-budget",
+    "title": "Methodology & Visualizations",
+    "section": "Research Question 2: Does the impact of a “Tech Focus” depend on the School Type (Elite vs. Budget)?",
+    "text": "Research Question 2: Does the impact of a “Tech Focus” depend on the School Type (Elite vs. Budget)?\n\nDetailed Analysis:\nThis Interaction Plot is critical for understanding the “Contextual Effect” of our curriculum variable. We plotted the relationship between Tech Focus (PC1) and Graduation Rate separately for each School Cluster (e.g., Elite, Budget, Commuter).\nKey Insight: If the lines were parallel, it would mean that a Tech curriculum helps all schools equally. However, the diverging slopes reveal a more complex story. For “Elite” schools (often Cluster 1), the slope might be positive, suggesting that technical rigor attracts high-performing students who graduate on time. In contrast, for “Budget” or “Commuter” schools, the slope might be flatter or even negative, implying that implementing a resource-intensive engineering curriculum without adequate support services could actually hinder graduation rates. This visual evidence supports the hypothesis that “one size does not fit all” in higher education policy.\nMethodology & Rationale:\n\nWhy Interaction Terms?\n\nContextual Efficacy: Standard regression (Y ~ X1 + X2) assumes independent effects (e.g., Tech Focus helps everyone equally). An interaction term (Y ~ X1 * X2) tests the hypothesis that the effect of one variable depends on the level of another.\nPolicy Relevance: This is crucial for detecting “One size fits all” fallacies. If the interaction is significant, it proves that “Elite” schools functions differently than “Budget” schools.\n\n\n\nModel Diagnostics (RQ2)\nTo ensure the validity of our Interaction Model, we must check the standard linear regression assumptions: Linearity, Normality of Residuals, and Homoscedasticity.\n\n\n\n\nDiagnostic Interpretation:\nResiduals vs Fitted: The red line is relatively flat, suggesting the linearity assumption holds reasonably well.\nNormal Q-Q: Points roughly follow the diagonal line, indicating normality of residuals, though with some deviation at the tails (heavy tails), which is common in social science data.\nScale-Location: No clear “fanning out” pattern is observed, suggesting Homoscedasticity (constant variance) is satisfied.\nThese checks confirm that our interaction effects are statistically valid and not artifacts of model assumption violations."
+  },
+  {
+    "objectID": "Methodology & Visualizations.html#research-question-4-do-education-deserts-geographic-isolation-negatively-impact-completion-rates",
+    "href": "Methodology & Visualizations.html#research-question-4-do-education-deserts-geographic-isolation-negatively-impact-completion-rates",
+    "title": "Methodology & Visualizations",
+    "section": "Research Question 4: Do “Education Deserts” (geographic isolation) negatively impact completion rates?",
+    "text": "Research Question 4: Do “Education Deserts” (geographic isolation) negatively impact completion rates?\n\nDetailed Analysis:\nThis Grouped Boxplot simplifies the complex spatial data into three clear categories, making the trend immediately visible.\nGreen Box (High Density/Urban): Schools with a neighbor within ~5km.\nOrange Box (Moderate): Schools with neighbors 5-25km away.\nRed Box (Isolated/Desert): Schools with no neighbor within 25km.\nKey Insight: By comparing the horizontal lines (medians) of the boxes, we see a clear step-down pattern. Urban schools (Green) have the highest median graduation rate. As we move to Moderate (Orange) and then Isolated (Red) schools, the median drops significantly. The faint dots in the background represent individual schools, showing the underlying density of the data in each category. This confirms that being in an Education Desert results in measurably lower student outcomes compared to being in a competitive academic hub.\nMethodology & Rationale:\n\nWhy Spatial Analysis & Boxplot?\n\nHandling Noise: Spatial data is inherently noisy and often skewed by outliers. We chose Grouped Boxplots because they robustly summarize the central tendency (Median) and spread (IQR), effectively filtering out noise to reveal the true “Step-Down” trend.\nStructural Barriers: By categorizing schools into “Urban” vs. “Isolated”, we can explicitly test the “Education Desert” hypothesis—that physical isolation acts as a barrier to completion, independent of other factors."
+  },
+  {
+    "objectID": "Conclusion.html",
+    "href": "Conclusion.html",
+    "title": "Conclusion & Strategic Recommendations",
+    "section": "",
+    "text": "This study successfully applied advanced data analytics and machine learning techniques to the College Scorecard dataset, moving beyond traditional descriptive statistics to uncover complex, non-linear drivers of institutional success.\nBy integrating Unsupervised Learning (PCA, Clustering) with Supervised methods (Random Forest, KNN) and Spatial Econometrics, we derived actionable insights for higher education policy."
+  },
+  {
+    "objectID": "Conclusion.html#key-analytical-findings",
+    "href": "Conclusion.html#key-analytical-findings",
+    "title": "Conclusion & Strategic Recommendations",
+    "section": "Key Analytical Findings:",
+    "text": "Key Analytical Findings:\n\nNon-Linearity in ROI: Our Random Forest model revealed that while a technical curriculum boosts earnings, the relationship is non-linear. The PDP identified a point of diminishing returns.\nContextual Efficacy: The Interaction Analysis demonstrated that “one size does not fit all.” The impact of curriculum changes varies significantly by institutional archetype (Elite vs. Commuter).\nThe “Education Desert” Effect: Our spatial analysis provided robust statistical evidence that geographic isolation negatively correlates with completion rates ($p &lt; 0.05$).s\nPrecision Classification: The KNN model successfully mapped the complex local clusters that define “High Value” institutions."
+  },
+  {
+    "objectID": "Conclusion.html#strategic-implications",
+    "href": "Conclusion.html#strategic-implications",
+    "title": "Conclusion & Strategic Recommendations",
+    "section": "Strategic Implications:",
+    "text": "Strategic Implications:\nFor policymakers and university administrators, these findings suggest a shift from broad, universal mandates to targeted, data-driven interventions. Investment strategies should prioritize digital infrastructure in “Education Deserts” and support diversified curricula rather than a singular focus on STEM."
+  },
+  {
+    "objectID": "about.html#introduction",
+    "href": "about.html#introduction",
+    "title": "About",
+    "section": "",
+    "text": "This project moves beyond simple descriptive statistics to apply Master’s Level Machine Learning and Spatial Analysis techniques to the College Scorecard dataset."
+  },
+  {
+    "objectID": "about.html#project-overview",
+    "href": "about.html#project-overview",
+    "title": "About",
+    "section": "Project Overview",
+    "text": "Project Overview\nHigher education in the United States is characterized by immense diversity in institutional quality, cost, and outcomes. With rising student debt and questions surrounding the value of a degree, understanding the drivers of student success—both financial (Earnings) and academic (Graduation Rates)—is critical.\nThis analysis aims to disentangle the complex relationships between Curriculum Composition (what schools teach), Institutional Context (the type of school), and Geographic characteristics (where schools are located)."
+  },
+  {
+    "objectID": "References.html",
+    "href": "References.html",
+    "title": "References",
+    "section": "",
+    "text": "[1] U.S. Department of Education. (2025). College Scorecard Data. Retrieved from collegescorecard.ed.gov/data.\n[2] James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). An Introduction to Statistical Learning with Applications in R. Springer. (Basis for Random Forest & KNN methodologies).\n[3] Kuhn, M. (2021). caret: Classification and Regression Training. R package version 6.0-88. (Used for Cross-Validation).\n[4] Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. (Used for Visualization).\n[5] Hillman, N. W. (2016). Geography of College Opportunity: The Case of Education Deserts. Bayesian Analysis. (Theoretical basis for Spatial Analysis)."
+  },
+  {
+    "objectID": "Conclusion.html#limitations",
+    "href": "Conclusion.html#limitations",
+    "title": "Conclusion & Strategic Recommendations",
+    "section": "Limitations:",
+    "text": "Limitations:\nWhile this analysis provides significant insights, it is subject to several limitations that future research should address:\n\nTemporal Dynamics: The analysis is cross-sectional. We cannot prove causality without longitudinal data.\nAggregation Bias: We rely on institutional averages, losing student-level nuance.\nProxy Variables: ADM_RATE and PCTPELL are imperfect proxies for selectivity and SES."
+  },
+  {
+    "objectID": "Conclusion.html#future-scope",
+    "href": "Conclusion.html#future-scope",
+    "title": "Conclusion & Strategic Recommendations",
+    "section": "Future Scope:",
+    "text": "Future Scope:\n\nLongitudinal Panel Analysis: Tracking schools over 10 years to establish causal links.\nHierarchical Linear Modeling (HLM): Modeling the nested structure of Students within Schools.\nNatural Language Processing (NLP): Analyzing course catalogs for granular curriculum metrics.\n\nThis project exemplifies how Data Engineering and Analytics can transform raw administrative data into strategic intelligence."
+  },
+  {
+    "objectID": "Methodology & Visualizations.html#research-question-3-can-we-classify-high-value-schools-high-earnings-low-cost",
+    "href": "Methodology & Visualizations.html#research-question-3-can-we-classify-high-value-schools-high-earnings-low-cost",
+    "title": "Methodology & Visualizations",
+    "section": "Research Question 3: Can we classify “High Value” schools (High Earnings, Low Cost)?",
+    "text": "Research Question 3: Can we classify “High Value” schools (High Earnings, Low Cost)?\n\nDetailed Analysis:\nThis visualization shows the classic Logistic Regression S-Curve (Sigmoid). We plotted the predicted Probability of being High Value against SAT Scores, colored by Tech Focus (PC1).\nKey Insight:\n1. The SAT Driver: The curve is steep around 1200-1300 SAT, acting as a “tipping point”. Below this score, the probability of being “High Value” is near zero. Above it, likelihood shoots up, confirming that student quality is a massive driver of ROI.\n2. The Tech Boost: The points are colored by Tech Focus (Darker/Purple = Low Tech, Brighter/Orange = High Tech). Notice that for schools with similar SAT scores (e.g., around 1250), the brighter points often sit slightly higher on the probability curve. This suggests that a technical curriculum acts as a “value booster,” increasing the odds even after controlling for student quality.\nMethodology & Rationale:\n\nWhy Logistic Regression?\n\nInterpretability: Unlike KNN, Logistic Regression provides clear coefficients, allowing us to quantify exactly how a 1-unit increase in SAT Score or Tech Focus changes the Odds of being a “High Value” school.\nProbability Estimation: It outputs a probability (0 to 1) rather than a hard class label, which is more useful for ranking schools or understanding “borderline” cases."
+  },
+  {
+    "objectID": "Source Code.html#model-diagnostics-rq2",
+    "href": "Source Code.html#model-diagnostics-rq2",
+    "title": "Source Code",
+    "section": "Model Diagnostics (RQ2)",
+    "text": "Model Diagnostics (RQ2)\nTo ensure the validity of our Interaction Model, we must check the standard linear regression assumptions: Linearity, Normality of Residuals, and Homoscedasticity.\n\npar(mfrow = c(2, 2))\nplot(lm_interaction, main = \"Diagnostics: Interaction Model\")\npar(mfrow = c(1, 1))"
+  },
+  {
+    "objectID": "about.html#dataset-composition",
+    "href": "about.html#dataset-composition",
+    "title": "About",
+    "section": "Dataset Composition:",
+    "text": "Dataset Composition:\nTo conduct this analysis, we are using the College Scorecard (Most Recent Cohorts) dataset. The dataset comprises of 6,429 total institutions.\n1. Institution Type (Control):\n\nPrivate For-profit: 2,420 (38%)\nPublic: 2,056 (32%)\nPrivate Non-profit: 1,953 (30%)\n\n2. Degree Level (Predominant):\n\nCertificate: 2,663\nBachelor’s: 1,983\nAssociate: 996\nGraduate: 280\n\n3. Data Availability:\n\nEarnings Data: Available for 82% of schools.\nAdmission Rates: Available for 30% of schools.\nSAT Scores: Available for only 17% (mostly 4-year universities)."
+  },
+  {
+    "objectID": "about.html#research-objectives",
+    "href": "about.html#research-objectives",
+    "title": "About",
+    "section": "Research Objectives:",
+    "text": "Research Objectives:\n\nEarnings (Non-Linear): Can we predict 10-year earnings using Random Forest to capture non-linear curriculum effects?\nGraduation Rate (Interaction): Does the impact of a “Tech Focus” depend on the School Type (Elite vs. Budget)?\nClassification (Logistic Regression): Can we accurately classify “High Value” schools (High Earnings, Low Cost)?\nSpatial Analysis (Geography): Do “Education Deserts” (geographic isolation) negatively impact completion rates?"
+  }
+]

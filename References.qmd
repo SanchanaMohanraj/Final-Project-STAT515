@@ -1,0 +1,14 @@
+---
+title: "References"
+editor: visual
+---
+
+**\[1\] U.S. Department of Education.** (2025). *College Scorecard Data*. Retrieved from [collegescorecard.ed.gov/data](https://collegescorecard.ed.gov/data).
+
+**\[2\] James, G., Witten, D., Hastie, T., & Tibshirani, R.** (2013). *An Introduction to Statistical Learning with Applications in R*. Springer. (Basis for Random Forest & KNN methodologies).
+
+**\[3\] Kuhn, M.** (2021). *caret: Classification and Regression Training*. R package version 6.0-88. (Used for Cross-Validation).
+
+**\[4\] Wickham, H.** (2016). *ggplot2: Elegant Graphics for Data Analysis*. Springer-Verlag New York. (Used for Visualization).
+
+**\[5\] Hillman, N. W.** (2016). *Geography of College Opportunity: The Case of Education Deserts*. Bayesian Analysis. (Theoretical basis for Spatial Analysis).

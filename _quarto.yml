@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "STAT515 Final Project"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - href: Research Questions.qmd
+        text: Research Questions
+      - href: Methodology & Visualizations.qmd
+        text: Methodology & Visualizations 
+      - href: Source Code.qmd
+        text: Source Code
+      - href: Conclusion.qmd
+        text: Conclusion
+      - href: References.qmd
+        text: References
+    right:
+      - icon: github
+        href: https://github.com/yourusername/CrimeData
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true

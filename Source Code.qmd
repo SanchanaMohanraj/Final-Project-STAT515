@@ -1,0 +1,274 @@
+---
+title: "Source Code"
+page-layout: full
+---
+
+# 1. Introduction
+
+To conduct this analysis, we are using the **College Scorecard (Most Recent Cohorts)** dataset. We have filtered the data to focus on **1,039 four-year institutions** with complete data on earnings, completion, and admissions.
+
+### Variable Data:
+
+**Derived Features (Created for this Analysis):**
+
+**`PC1` (The "Tech Score"):** A continuous index derived via PCA.\
+**High Score:** Engineering, CS, Math focus (e.g., Georgia Tech).\
+**Low Score:** Liberal Arts, English, History focus.\
+**`Cluster` (The "School Archetype"):** Created via K-Means Clustering on cost, size, and selectivity.\
+**1 (Elite):** Highly selective, wealthy, private schools (e.g., Yale).\
+**2 (State U):** Large public universities (e.g., UVA, GMU).\
+**3 (Budget):** Small, less selective private colleges.\
+**`Isolation_Level`:** Categorized based on distance to the nearest competitor.\
+**Urban:** Many neighbors within 5km.\
+**Isolated:** No neighbors within 25km ("Education Desert").
+
+**Standard Variables:**\
+**`SAT_AVG`:** Average SAT Score of admitted students (Proxy for Student Quality).\
+**`INEXPFTE`:** Instructional Expenditure per student (Proxy for School Investment).\
+**`PCTPELL`:** % of students on Pell Grants (Proxy for Low Income status).\
+**`High_Value`:** Binary target. "Yes" if a school has **Above Median Earnings** AND **Below Median Cost**.
+
+# 2. Data Preparation & Feature Engineering
+
+We start by loading the data and applying advanced feature engineering: **PCA** (to reduce 30+ major variables) and **K-Means Clustering** (to identify school archetypes).
+
+```{undefined}
+# Load Libraries
+required_packages <- c("tidyverse", "plotly", "broom", "scales", "randomForest", "glmnet", "caret", "rpart", "rpart.plot", "pdp", "e1071")
+# new_packages <- required_packages[!(required_packages %in% installed.packages()[, "Package"])]
+# if (length(new_packages)) install.packages(new_packages, repos = "http://cran.us.r-project.org")
+
+library(tidyverse)
+library(scales)
+library(plotly)
+library(randomForest)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(pdp)
+library(e1071)
+
+# Load Data
+file_path <- "College_Scorecard_Raw_Data_10032025/Most-Recent-Cohorts-Institution.csv"
+cols_to_keep <- c(
+    "INSTNM", "STABBR", "CONTROL", "REGION", "LOCALE", "LATITUDE", "LONGITUDE",
+    "ADM_RATE", "SAT_AVG", "UGDS", "COSTT4_A", "TUITIONFEE_IN", "TUITIONFEE_OUT",
+    "MD_EARN_WNE_P10", "C150_4", "GRAD_DEBT_MDN", "PCTPELL", "INEXPFTE",
+    "PCIP01", "PCIP03", "PCIP04", "PCIP05", "PCIP09", "PCIP10", "PCIP11",
+    "PCIP12", "PCIP13", "PCIP14", "PCIP15", "PCIP16", "PCIP19", "PCIP22",
+    "PCIP23", "PCIP24", "PCIP25", "PCIP26", "PCIP27", "PCIP29", "PCIP30",
+    "PCIP31", "PCIP38", "PCIP39", "PCIP40", "PCIP41", "PCIP42", "PCIP43",
+    "PCIP44", "PCIP45", "PCIP46", "PCIP47", "PCIP48", "PCIP49", "PCIP50",
+    "PCIP51", "PCIP52", "PCIP54"
+)
+
+df <- read_csv(file_path, na = c("NULL", "PrivacySuppressed", "NA", "PS", ""), col_select = all_of(cols_to_keep), show_col_types = FALSE)
+
+# Clean Data
+numeric_cols <- setdiff(names(df), c("INSTNM", "STABBR", "CONTROL", "REGION", "LOCALE"))
+df[numeric_cols] <- lapply(df[numeric_cols], as.numeric)
+df$CONTROL <- as.factor(df$CONTROL)
+df$REGION <- as.factor(df$REGION)
+df_clean <- df %>%
+    filter(!is.na(MD_EARN_WNE_P10), !is.na(C150_4), !is.na(COSTT4_A)) %>%
+    na.omit()
+```
+
+```{r}
+#| eval: false
+#| include: false
+
+```
+
+### 2.1 PCA & Clustering
+
+Instead of using 38 separate variables for majors, we use **Principal Component Analysis (PCA)** to create "Curriculum Indices". We also use **K-Means** to group schools into 3 distinct "Archetypes".
+
+```{undefined}
+# --- A. PCA (Program Mix) ---
+# Select Major columns
+pcip_cols <- grep("PCIP", names(df_clean), value = TRUE)
+
+# Remove zero variance columns (Essential for PCA stability)
+zero_var_cols <- pcip_cols[sapply(df_clean[, pcip_cols], var) == 0]
+if (length(zero_var_cols) > 0) pcip_cols <- setdiff(pcip_cols, zero_var_cols)
+
+# Run PCA
+pca_res <- prcomp(df_clean[, pcip_cols], scale. = TRUE)
+
+# Scree Plot (Variance Explained)
+var_explained <- pca_res$sdev^2 / sum(pca_res$sdev^2)
+pca_df <- data.frame(PC = 1:10, Variance = var_explained[1:10])
+
+g1 <- ggplot(pca_df, aes(x = PC, y = Variance)) +
+    geom_bar(stat = "identity", fill = "steelblue") +
+    geom_line() +
+    labs(title = "Scree Plot: Variance Explained by Top 10 PCs", x = "Principal Component", y = "Proportion of Variance") +
+    theme_minimal()
+print(ggplotly(g1))
+
+# Add Top 5 PCs to Data
+df_clean <- cbind(df_clean, pca_res$x[, 1:5])
+
+# --- B. Clustering (School Archetypes) ---
+# Cluster based on Cost, Size, Admission Rate, SAT
+cluster_vars <- c("COSTT4_A", "UGDS", "ADM_RATE", "SAT_AVG")
+df_scaled <- scale(df_clean[, cluster_vars])
+
+set.seed(123)
+kmeans_res <- kmeans(df_scaled, centers = 3)
+df_clean$Cluster <- as.factor(kmeans_res$cluster)
+
+# Cluster Interpretation Table
+cluster_profile <- df_clean %>%
+    group_by(Cluster) %>%
+    summarise(
+        Avg_Cost = mean(COSTT4_A),
+        Avg_SAT = mean(SAT_AVG),
+        Avg_Size = mean(UGDS),
+        Avg_AdmRate = mean(ADM_RATE),
+        Count = n()
+    )
+print(knitr::kable(cluster_profile, digits = 0, caption = "Cluster Profiles (School Archetypes)"))
+
+```
+
+------------------------------------------------------------------------
+
+# 3. RQ1: Earnings Prediction (Non-Linear)
+
+**Question:** Can we predict earnings based on curriculum and school stats?
+
+```{undefined}
+set.seed(123)
+predictors <- c("PC1", "PC2", "PC3", "PC4", "PC5", "Cluster", "ADM_RATE", "SAT_AVG", "UGDS", "COSTT4_A", "CONTROL", "REGION")
+rf_formula <- as.formula(paste("MD_EARN_WNE_P10 ~", paste(predictors, collapse = "+")))
+rf_model <- randomForest(rf_formula, data = df_clean, ntree = 100, importance = TRUE)
+
+# Partial Dependence Plot
+pdp_pc1 <- pdp::partial(rf_model, pred.var = "PC1", train = df_clean)
+p2 <- ggplot(pdp_pc1, aes(x = PC1, y = yhat)) +
+    geom_line(color = "darkgreen", linewidth = 1.2) +
+    labs(title = "Partial Dependence: Tech Focus (PC1) vs. Earnings", x = "PC1 (Tech Factor)", y = "Predicted Earnings") +
+    theme_minimal()
+ggplotly(p2)
+```
+
+------------------------------------------------------------------------
+
+# 4. RQ2: Graduation Rate (Interaction Analysis)
+
+**Question:** Does the benefit of a "Tech Curriculum" depend on the *Type of School*?
+
+```{undefined}
+# Interaction Model
+lm_interaction <- lm(C150_4 ~ PC1 * Cluster + SAT_AVG + ADM_RATE + COSTT4_A + UGDS + CONTROL + PCTPELL, data = df_clean)
+summary(lm_interaction)
+
+# Interaction Plot
+p3 <- ggplot(df_clean, aes(x = PC1, y = C150_4, color = Cluster)) +
+    geom_point(alpha = 0.3) +
+    geom_smooth(method = "lm", se = FALSE) +
+    labs(title = "Interaction Effect: Curriculum x School Type", x = "PC1 (Tech Factor)", y = "Graduation Rate") +
+    theme_minimal()
+ggplotly(p3)
+```
+
+## Model Diagnostics (RQ2)
+
+To ensure the validity of our Interaction Model, we must check the standard linear regression assumptions: **Linearity, Normality of Residuals, and Homoscedasticity**.
+
+```{undefined}
+par(mfrow = c(2, 2))
+plot(lm_interaction, main = "Diagnostics: Interaction Model")
+par(mfrow = c(1, 1))
+```
+
+------------------------------------------------------------------------
+
+# 5. RQ3: Classification (KNN)
+
+**Question:** Can we classify "High Value" schools (High Earnings, Low Cost)?
+
+```{undefined}
+# Define High Value
+earn_thresh <- quantile(df_clean$MD_EARN_WNE_P10, 0.66)
+cost_thresh <- quantile(df_clean$COSTT4_A, 0.50)
+df_clean <- df_clean %>% mutate(High_Value = as.factor(ifelse(MD_EARN_WNE_P10 > earn_thresh & COSTT4_A < cost_thresh, "Yes", "No")))
+
+# Train Logistic Regression Model
+# We model the Probability of being "High Value" (1) vs "No" (0)
+log_model <- glm(High_Value ~ SAT_AVG + ADM_RATE + UGDS + REGION + PC1 + Cluster,
+    data = df_clean, family = "binomial"
+)
+
+print(summary(log_model))
+
+# Visualization: Probability Curve (S-Curve)
+# We calculate predicted probabilities for the dataset
+df_clean$Prob_High_Value <- predict(log_model, type = "response")
+
+# Plot Probability vs. SAT_AVG (the strongest predictor), colored by Tech Focus (PC1)
+p4 <- ggplot(df_clean, aes(x = SAT_AVG, y = Prob_High_Value, color = PC1)) +
+    geom_point(alpha = 0.6) +
+    geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, color = "black") +
+    scale_color_viridis_c(option = "magma", name = "Tech Focus (PC1)") +
+    labs(
+        title = "Probability of 'High Value' (Logistic Regression)",
+        subtitle = "Sigmoid Curve: Higher SAT -> Higher Probability | Color = Tech Focus",
+        x = "SAT Score",
+        y = "Probability of High Value (0-1)"
+    ) +
+    theme_minimal()
+ggplotly(p4)
+```
+
+------------------------------------------------------------------------
+
+# 6. RQ4: Spatial Analysis (Education Deserts)
+
+**Question:** Does geographic isolation impact completion rates?
+
+```{undefined}
+# Haversine Function
+# Euclidean Distance Function
+calculate_nearest_dist <- function(lat, lon, all_lats, all_lons) {
+    # Euclidean Distance approximation (Distance in degrees)
+    d <- sqrt((all_lats - lat)^2 + (all_lons - lon)^2)
+    d[d == 0] <- Inf
+    return(min(d, na.rm = TRUE))
+}
+
+# Calculate Distances
+distances <- numeric(nrow(df_clean))
+lats <- df_clean$LATITUDE
+lons <- df_clean$LONGITUDE
+for (i in 1:nrow(df_clean)) distances[i] <- calculate_nearest_dist(lats[i], lons[i], lats, lons)
+df_clean$Nearest_Dist <- distances
+
+# Spatial Regression
+lm_spatial <- lm(C150_4 ~ Nearest_Dist + INEXPFTE + CONTROL + REGION, data = df_clean)
+summary(lm_spatial)
+
+# Visualization (Simplified Boxplot)
+# Create Isolation Categories
+df_clean$Isolation_Level <- cut(df_clean$Nearest_Dist,
+    breaks = c(-Inf, 0.05, 0.25, Inf),
+    labels = c("High Density (Urban)", "Moderate", "Isolated (Desert)")
+)
+
+p5 <- ggplot(df_clean, aes(x = Isolation_Level, y = C150_4, fill = Isolation_Level)) +
+    geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+    geom_jitter(width = 0.2, alpha = 0.1) +
+    scale_fill_manual(values = c("green", "orange", "red"), name = "Isolation Level") +
+    labs(
+        title = "Impact of Isolation on Graduation Rates",
+        subtitle = "Trend: Median Grad Rate drops from Urban to Isolated",
+        x = "Geographic Isolation Level",
+        y = "Graduation Rate"
+    ) +
+    theme_minimal()
+ggplotly(p5)
+```
+
+# 
