@@ -27,7 +27,7 @@ We use an **Interaction Model** (`PC1 * Cluster`).
 This classification is vital as it provides a **data-driven definition of educational value**, allowing institutions and policymakers to understand which factors (curriculum, control, etc.) successfully drive high economic return at low cost. It gives prospective students a clear, predictive model to make investment decisions that optimize their financial outcomes.
 
 **Model Used**\
-We use KNN Classifier with Cross-Validation. Also \*\*Kappa\*\* to evaluate, as it corrects for chance.
+Logistic Regression with Probability Thresholds and S-Curve Visualization.
 
 ## Research Question 4: Do "Education Deserts" (geographic isolation) negatively impact completion rates?
 
